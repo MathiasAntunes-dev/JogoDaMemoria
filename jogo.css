@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+/* ======== ESTILO GERAL ======== */
+html {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 0.55vh solid #f3a16b;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  display: flex;
+  flex-wrap: wrap;
+  background: radial-gradient(circle at center, rgb(202, 132, 41) 0%, rgb(95, 44, 4) 100%);
+  text-align: center;
+  overflow: hidden;
+  font-family: 'Pixelify Sans';
+  color: #fff;
+}
+
+/* ======== BOTÃO VOLTAR ======== */
+.material-symbols-outlined {
+  position: fixed;
+  top: 2.5vh;
+  left: 2.5vh;
+  height: 4vh;
+  width: 4.2vh;
+  padding-top: 0.3vh;
+  border-radius: 1vh;
+  background: rgb(202, 132, 41);
+  color: rgb(77, 49, 22);
+  border: 0.35vh solid #f3a16b;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Pixelify Sans';
+  transition: 0.2s;
+  text-decoration: none;
+  font-size: 1vh;
+}
+
+.material-symbols-outlined:hover {
+  background: rgb(221, 151, 65);
+  color: rgb(255, 229, 195);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* ======== PERSONAGENS ======== */
+#clarisse, #machado {
+  position: fixed;
+  bottom: 0;
+  width: 57vh;
+  opacity: 0.5;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.561));
+  z-index: 0;
+}
+
+#clarisse {
+  right: -16.5vh;
+}
+
+#machado {
+  left: -17vh;
+  width: 60vh;
+}
+
+/* ======== NOMES DOS JOGADORES ======== */
+#machadonome, #clarissenome {
+  position: fixed;
+  bottom: 1vh;
+  margin-bottom: 1vh;
+  color: #fff;
+  background: linear-gradient(to bottom, rgb(112, 49, 2), rgb(101, 52, 14));
+  padding: 1vh;
+  border-radius: 2.5vh;
+  border: .9vh solid #502002;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+  font-weight: bolder;
+  font-size: 2.5vh;
+  z-index: 1;
+}
+
+#machadonome {
+  left: 4vh;
+}
+
+#clarissenome {
+  right: 4vh;
+}
+
+#autores{
+    margin: 0;
+}
+
+/* ======== SEÇÃO DO TOPO (PONTOS + CRONÔMETRO) ======== */
+.topo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%; 
+  z-index: 10;
+}
+
+/* Pontuação dos jogadores */
+.pontos-jogador1, .pontos-jogador2 {
+  font-size: 4vh;
+  font-weight: bold;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'Pixelify Sans';
+}
+
+/* ======== CRONÔMETRO ======== */
+#cronometro {
+  position: relative;
+  width: 35vh;
+  height: 3vh;
+  background: rgb(161, 109, 46);
+  border-radius: 2vh;
+  border: 0.25vh solid #fff;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#barra-tempo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, #cca468, #cca468);
+  border-radius: 2vh;
+  transition: width 1s linear;
+}
+
+#tempo {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  line-height: 3vh;
+  font-weight: bold;
+  font-size: 2.3vh;
+  color: #fff;
+  font-family: 'Pixelify Sans';
+}
+
+/* ======== FUNDO E CARTAS ======== */
+.fundo {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -45%);
+  width: 77vh;
+  height: 80vh;
+  margin-top: 45vh;
+  background: rgb(183, 124, 51);
+  border-radius: 1.5vh;
+  padding: 1.5vh;
+  padding-bottom: 3.3vh;
+  box-shadow: 0px 0px 15px rgba(97, 57, 0, 0.5);
+}
+
+.cartas {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10vh;
+  justify-content: center;
+}
+
+.carta {
+  width: 11.6vh;
+  height: 17vh;
+  margin: 0.3vh;
+  cursor: pointer;
+  perspective: 1000px;
+  position: relative;
+  transition: box-shadow 0.1s ease, transform 0.2s;
+}
+
+.carta:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+
+.carta .frente, .carta .verso {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+}
+
+.carta .frente {
+  transform: rotateY(180deg);
+  box-shadow: 0px 0px 7px rgba(240, 255, 128, 0.5);
+}
+
+.carta.virada .frente {
+  transform: rotateY(0deg);
+}
+
+.carta.virada .verso {
+  transform: rotateY(180deg);
+}
+
+/* ======== COPYRIGHT ======== */
+#copyright {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.7vh;
+}
+
+/* ======== POP-UP DE FIM DE JOGO ======== */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.popup-conteudo {
+  background: #fff;
+  color: #5b2c00;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 2.2vh;
+  text-align: center;
+  border-radius: 1.5vh;
+  padding: 4vh 6vh;
+  max-width: 70vh;
+  line-height: 1.5;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  animation: aparecer 0.4s ease-out;
+}
+
+#botao-reiniciar {
+  background: #e27d3b;
+  color: white;
+  border: none;
+  border-radius: 1.5vh;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-weight: bold;
+  font-size: 2.2vh;
+  padding: 1.2vh 3vh;
+  margin-top: 2.5vh;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  transition: 0.2s;
+  border: solid .6vh #f39656;
+
+}
+
+#botao-reiniciar:hover {
+  background: #f39656;
+  transform: scale(1.025);
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+/* ======== ANIMAÇÃO DE CONTAGEM INICIAL ======== */
+.tela-contagem {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+.numero-contagem {
+  font-family: 'Pixelify Sans', sans-serif;
+  color: #fff5d1;
+  font-size: 20vh;
+  text-shadow: 0 0 25px rgba(255, 193, 94, 0.9);
+  animation: pulsar 1s ease-in-out infinite;
+}
+
+@keyframes pulsar {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+
+

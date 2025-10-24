@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <link rel="stylesheet" href="jogo.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back" />
+</head>
+<body>
+
+
+    <span class="material-symbols-outlined seta">
+        <a href="index.html">arrow_back</a>
+    </span>
+    
+    <div class="fundo">
+
+        <div class="topo">
+            <div class="pontos-jogador1">PTS 000</div>
+            <div id="cronometro">
+                <div id="barra-tempo"></div>
+                <div id="tempo">03:00</div>
+            </div>
+            <div class="pontos-jogador2">PTS 000</div>
+        </div>
+
+
+        <div class="cartas">
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="anita.jpeg" alt="Anita">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="carlos.jpeg" alt="Carlos">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="castro.jpeg" alt="Castro">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="clarice.jpeg" alt="Clarice">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="euclides.jpeg" alt="Euclides">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="gregorio.jpeg" alt="Gregório">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="jose.jpeg" alt="José">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="julia.jpeg" alt="Júlia">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="machado.jpeg" alt="Machado">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="manuel.jpeg" alt="Manuel">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="monteiro.jpeg" alt="Monteiro">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="padre.jpeg" alt="Padre">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="anita.jpeg" alt="Anita">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="carlos.jpeg" alt="Carlos">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="castro.jpeg" alt="Castro">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="clarice.jpeg" alt="Clarice">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="euclides.jpeg" alt="Euclides">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="gregorio.jpeg" alt="Gregório">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="jose.jpeg" alt="José">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="julia.jpeg" alt="Júlia">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="machado.jpeg" alt="Machado">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="manuel.jpeg" alt="Manuel">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="monteiro.jpeg" alt="Monteiro">
+            </div>
+            <div class="carta">
+                <img class="verso" src="letras.jpeg" alt="Verso">
+                <img class="frente" src="padre.jpeg" alt="Padre">
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p id="copyright">
+            © 2025 Samuel, Mathias, Leonardo. Todos os direitos reservados.
+        </p>
+    </div>
+
+    <div id="machadonome">
+        <p id="autores">
+            MACHADO DE ASSIS <br>
+            player 1
+        </p>
+    </div>
+
+    <div id="clarissenome">
+        <p id="autores">
+            CLARICE LISPECTOR <br>
+            player 2
+        </p>
+    </div>
+
+    <div id="divclarisse">
+    <img id="clarisse" src="clarisse.png" alt="Minha foto">
+    </div>
+
+    <div>
+    <img id="machado" src="machado.png" alt="Minha foto">
+    </div>
+
+    <!-- POP-UP DE FIM DE JOGO -->
+    <div id="popup-fim" class="popup">
+    <div class="popup-conteudo">
+        <p id="mensagem-fim"></p>
+        <button id="botao-reiniciar">JOGAR NOVAMENTE</button>
+    </div>
+    </div>
+
+     <!-- TELA DE CONTAGEM INICIAL -->
+    <div id="tela-contagem" class="tela-contagem">
+        <div id="numero-contagem" class="numero-contagem">3</div>
+    </div>
+
+    <script src="jogo.js"></script>
+
+</body>
+</html>
