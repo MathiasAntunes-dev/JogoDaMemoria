@@ -100,7 +100,7 @@ body {
     margin: 0;
 }
 
-/* ======== SEÇÃO DO TOPO (PONTOS + CRONÔMETRO) ======== */
+/* ======== ILHA DE BOTÕES (PONTOS + CRONÔMETRO) ======== */
 .topo {
   position: absolute;
   left: 50%;

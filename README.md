@@ -18,13 +18,13 @@ A proposta é incentivar a leitura e o aprendizado por meio de uma atividade lú
 
 O jogo é totalmente online. Basta acessar o link abaixo:  
 
- (https://seu-link.com)  
+ (https://mathiasantunes-dev.github.io/JogoDaMemoria/)  
 
 ---
 
  Prévia
 
-*(Adicione aqui uma captura de tela ou GIF do jogo para deixar o README mais atrativo)*  
+***
 
 ---
 

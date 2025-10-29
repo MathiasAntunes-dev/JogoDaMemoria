@@ -11,12 +11,19 @@ let jogadorAtual = 1; // 1 = Machado, 2 = Clarisse
 let pontos1 = 0;
 let pontos2 = 0;
 
+let totalPairs = Math.floor(cartas.length / 2);
+let matchedPairs = 0;
+
+let cronometroInterval = null;
+let gameEnded = false;
+
 atualizarTurnoVisual();
 
 // --- Virar carta ---
 function virarCarta() {
   if (bloqueio) return;
   if (this === primeiraCarta) return;
+  if (gameEnded) return; // protege caso o jogo já tenha terminado
 
   this.classList.add('virada');
 
@@ -36,7 +43,7 @@ function checarCombinação() {
     segundaCarta.querySelector('.frente').src;
 
   if (combinou) {
-    adicionarPontos();
+    adicionarPontos(); // aqui incrementa pontos e matchedPairs
     resetarCartas(true);
   } else {
     bloqueio = true;
@@ -55,20 +62,28 @@ function adicionarPontos() {
     pontos1 += 50;
     pontosJ1.textContent = `PTS ${pontos1.toString().padStart(3, '0')}`;
     pontosJ1.style.transform = "scale(1.1)";
-    pontosJ1.style.opacity = "1"
-    pontosJ1.style.transition = ".5s ease"
-    pontosJ2.style.transition = ".5s ease"
+    pontosJ1.style.opacity = "1";
+    pontosJ1.style.transition = ".5s ease";
+    pontosJ2.style.transition = ".5s ease";
     pontosJ2.style.transform = "scale(1)";
-    pontosJ2.style.opacity = "0.65"
+    pontosJ2.style.opacity = "0.65";
   } else {
     pontos2 += 50;
     pontosJ2.textContent = `PTS ${pontos2.toString().padStart(3, '0')}`;
     pontosJ2.style.transform = "scale(1.1)";
-    pontosJ2.style.opacity = "1"
-    pontosJ2.style.transition = ".5s ease"
-    pontosJ1.style.transition = ".5s ease"
+    pontosJ2.style.opacity = "1";
+    pontosJ2.style.transition = ".5s ease";
+    pontosJ1.style.transition = ".5s ease";
     pontosJ1.style.transform = "scale(1)";
-    pontosJ1.style.opacity = "0.65"
+    pontosJ1.style.opacity = "0.65";
+  }
+
+  // Contador de pares encontrados
+  matchedPairs += 1;
+
+  // Se encontrou todos os pares -> encerra o jogo
+  if (matchedPairs >= totalPairs) {
+    endGame('completo');
   }
 }
 
@@ -86,7 +101,7 @@ function atualizarTurnoVisual() {
     clarisseImg.style.opacity = "0.4";
     clarisseImg.style.transform = "scale(1)";
     clarisseImg.style.transition = "transform 1.3s ease";
-    } else {
+  } else {
     clarisseImg.style.opacity = "1";
     clarisseImg.style.transform = "scale(1.1)";
     machadoImg.style.opacity = "0.4";
@@ -100,6 +115,9 @@ function resetarCartas(combinou) {
   if (combinou) {
     primeiraCarta.removeEventListener('click', virarCarta);
     segundaCarta.removeEventListener('click', virarCarta);
+    // opcional: desabilitar pointer events nas cartas encontradas
+    primeiraCarta.style.pointerEvents = "none";
+    segundaCarta.style.pointerEvents = "none";
   }
   [primeiraCarta, segundaCarta] = [null, null];
   bloqueio = false;
@@ -120,25 +138,29 @@ const telaContagem = document.getElementById("tela-contagem");
 const numeroContagem = document.getElementById("numero-contagem");
 
 let contagem = 3;
-numeroContagem.textContent = contagem;
+if (numeroContagem) numeroContagem.textContent = contagem;
 
 // Desativa cliques enquanto a contagem acontece
 cartas.forEach(c => c.style.pointerEvents = "none");
 
 const intervaloContagem = setInterval(() => {
   contagem--;
-  if (contagem > 0) {
-    numeroContagem.textContent = contagem;
-  } else if (contagem === 0) {
-    numeroContagem.textContent = "VALENDO!!!";
-  } else {
-    clearInterval(intervaloContagem);
-    telaContagem.style.opacity = "0";
-    setTimeout(() => telaContagem.style.display = "none", 600);
+  if (numeroContagem) {
+    if (contagem > 0) {
+      numeroContagem.textContent = contagem;
+    } else if (contagem === 0) {
+      numeroContagem.textContent = "VALENDO!!!";
+    } else {
+      clearInterval(intervaloContagem);
+      if (telaContagem) {
+        telaContagem.style.opacity = "0";
+        setTimeout(() => telaContagem.style.display = "none", 600);
+      }
 
-    // Libera as cartas e inicia o cronômetro
-    cartas.forEach(c => c.style.pointerEvents = "auto");
-    iniciarCronometro();
+      // Libera as cartas e inicia o cronômetro
+      cartas.forEach(c => c.style.pointerEvents = "auto");
+      iniciarCronometro();
+    }
   }
 }, 1000);
 
@@ -152,46 +174,69 @@ const tempoSpan = document.getElementById("tempo");
 const barraTempo = document.getElementById("barra-tempo");
 
 function iniciarCronometro() {
-  const cronometro = setInterval(() => {
+  // guarda o id para podermos limpar depois
+  cronometroInterval = setInterval(() => {
+    // se o jogo já terminou, garante que o intervalo será limpo
+    if (gameEnded) {
+      clearInterval(cronometroInterval);
+      return;
+    }
+
     if (tempoRestante <= 0) {
-      clearInterval(cronometro);
+      clearInterval(cronometroInterval);
       tempoSpan.textContent = "00:00";
       barraTempo.style.width = "0%";
-      
-      // --- Fim do jogo: exibe resultado estilizado ---
-      let vencedor = "";
-      if (pontos1 > pontos2) {
-        vencedor = "🏆 MACHADO DE ASSIS venceu!";
-      } else if (pontos2 > pontos1) {
-        vencedor = "🏆 CLARICE LISPECTOR venceu!";
-      } else {
-        vencedor = "🤝 Empate!";
-      }
-
-      setTimeout(() => {
-        const popup = document.getElementById("popup-fim");
-        const mensagem = document.getElementById("mensagem-fim");
-        const botao = document.getElementById("botao-reiniciar");
-
-        mensagem.innerHTML = `${vencedor}<br><br>Obrigado por jogar!`;
-        popup.style.display = "flex";
-
-        botao.addEventListener("click", () => {
-          location.reload();
-        });
-      }, 800);
-
+      endGame('tempo'); // fim por tempo
       return;
     }
 
     tempoRestante--;
     const minutos = Math.floor(tempoRestante / 60);
     const segundos = tempoRestante % 60;
-    tempoSpan.textContent = `${minutos.toString().padStart(2, "0")}:${segundos
-      .toString()
-      .padStart(2, "0")}`;
+    if (tempoSpan) tempoSpan.textContent = `${minutos.toString().padStart(2, "0")}:${segundos.toString().padStart(2, "0")}`;
 
     const porcentagem = (tempoRestante / tempoTotal) * 100;
-    barraTempo.style.width = `${porcentagem}%`;
+    if (barraTempo) barraTempo.style.width = `${porcentagem}%`;
   }, 1000);
+}
+
+// --- função que finaliza o jogo mostrando o pop-up (mesma UI do fim) ---
+function endGame(reason) {
+  if (gameEnded) return; // evita execução dupla
+  gameEnded = true;
+
+  // Para o cronômetro caso esteja rodando
+  if (cronometroInterval) {
+    clearInterval(cronometroInterval);
+  }
+
+  // Desabilita cliques em todas as cartas
+  cartas.forEach(c => c.style.pointerEvents = "none");
+
+  // Determina vencedor baseado na pontuação
+  let vencedor = "";
+  if (pontos1 > pontos2) {
+    vencedor = "🏆 MACHADO DE ASSIS venceu!";
+  } else if (pontos2 > pontos1) {
+    vencedor = "🏆 CLARICE LISPECTOR venceu!";
+  } else {
+    vencedor = "🤝 Empate!";
+  }
+
+  // Exibe o mesmo pop-up do fim de jogo
+  setTimeout(() => {
+    const popup = document.getElementById("popup-fim");
+    const mensagem = document.getElementById("mensagem-fim");
+    const botao = document.getElementById("botao-reiniciar");
+
+    if (mensagem) mensagem.innerHTML = `${vencedor}<br><br>Obrigado por jogar!`;
+    if (popup) popup.style.display = "flex";
+
+    if (botao) {
+      // remove listeners anteriores para não duplicar
+      botao.replaceWith(botao.cloneNode(true));
+      const novoBotao = document.getElementById("botao-reiniciar");
+      novoBotao.addEventListener("click", () => location.reload());
+    }
+  }, 500);
 }

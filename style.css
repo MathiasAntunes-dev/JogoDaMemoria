@@ -134,7 +134,7 @@ main {
     left: 0;
     color: white;
     z-index: 5;
-    margin-left: 15vh;
+    margin-left: 12vh;
     font-family: 'Pixelify Sans';
     text-align: center;
     background: linear-gradient(to bottom, rgb(112, 49, 2), rgb(101, 52, 14));
@@ -154,7 +154,7 @@ main {
     right: 0;
     color: white;
     z-index: 5;
-    margin-right: 15vh;
+    margin-right: 12vh;
     font-family: 'Pixelify Sans';
     text-align: center;
     background: linear-gradient(to bottom, rgb(112, 49, 2), rgb(101, 52, 14));
